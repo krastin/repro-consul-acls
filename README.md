@@ -14,4 +14,4 @@ Inspect the `Vagrantfile` for more info. To change the amount of instances, modi
     vault_servers = 3
 
 # Thanks
-Much inspiration and even more code samples and snippets were elegantly borrowed from @kikitux
+Much inspiration and even more code samples and snippets were elegantly borrowed from [@kikitux](https://github.com/kikitux)
