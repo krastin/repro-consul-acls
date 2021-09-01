@@ -28,8 +28,9 @@ Vagrant.configure("2") do |config|
   (1..vault_servers).each do |i|
     config.vm.define "vault0#{i}" do |vault|
       vault.vm.hostname = "vault0#{i}"
-      vault.vm.box = "krastin/buster-vault"
+      vault.vm.box = "krastin/xenial-vault"
       vault.vm.network "private_network", ip: "10.10.10.#{100+i}"
+      vault.vm.provision "shell", path: "https://raw.githubusercontent.com/krastin/hashistack-provisioning/master/consul/install/install_consul.sh"
       vault.vm.provision "shell", path: "https://raw.githubusercontent.com/krastin/hashistack-provisioning/master/consul/configure/configure_consul.sh",
       env: {
         "NODE_NAME" => "vault01",
@@ -37,7 +38,10 @@ Vagrant.configure("2") do |config|
         "SERVER" => "false",
         "LOCAL_IP" => "10.10.10.#{100+i}",
       }
-      vault.vm.provision "shell", path: "https://raw.githubusercontent.com/krastin/hashistack-provisioning/master/vault/configure/configure_vault.sh"
+      vault.vm.provision "shell", path: "https://raw.githubusercontent.com/krastin/hashistack-provisioning/master/vault/configure/configure_vault.sh",
+      env: {
+        "LOCAL_IP" => "10.10.10.#{100+i}",
+      }
     end
   end
 end
